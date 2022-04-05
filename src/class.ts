@@ -18,7 +18,8 @@ export class User {
 
 //* Public = bisa diakses disemua class / luar class
 //* Protected = hanya bisa diakses dari class tersebut / class turunnya
-//* Private = hanya bisa diakses di class itu sendiri 
+//* Private = hanya bisa diakses di class itu sendiri
+//* Static = Bisa diakses di class itu sendiri, tanpa harus dimasukkan ke Constructor
 
 // let user = new User("Richard Laurent", 22);
 // console.log(user.name, user.age);
@@ -29,6 +30,9 @@ class Admin extends User {
   read: boolean = true;
   write: boolean = true;
   phone: string;
+
+  private _email: string = "";
+  static getRoleName: string = "Admin"; //Static nempel dengan Class Adminnya langsung
 
   //* Super Constructor dengan syntax super()
   constructor(phone: string, name: string, age: number) {
@@ -42,12 +46,34 @@ class Admin extends User {
       write: this.write 
     };
   };
+
+  //* Setter = berfungsi untuk memvalidasi Value (biasanya) 
+  set email(value: string) {
+    if (value.length < 5) {
+      this._email = "Email tidak Valid";
+    } else {
+      this._email = value;
+    }
+  };
+
+  //* Getter = berfungsi untuk mengambil data (return data) dari Setter 
+
+  get email(): string {
+    return this._email;
+  };
+
 }
 
-let admin = new Admin("081210835622", "Richard Laurent", 22);
+// let admin = new Admin("081210835622", "Richard Laurent", 22);
 
-console.log(
-  admin.getName(),
-  admin.getRole(),
-  admin.phone
-);
+// console.log(
+//   admin.getName(),
+//   admin.getRole(),
+//   admin.phone
+// );
+
+// admin.email = "ronaldorichard27@gmail.com";
+
+let admin = Admin.getRoleName;
+
+console.log(admin);
